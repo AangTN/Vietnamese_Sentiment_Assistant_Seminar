@@ -1,0 +1,11 @@
+# Thư mục cache của Python
+__pycache__/
+*.pyc
+
+# Database SQLite
+*.db
+sentiment_history.db
+
+# Môi trường ảo (nếu có)
+venv/
+env/
