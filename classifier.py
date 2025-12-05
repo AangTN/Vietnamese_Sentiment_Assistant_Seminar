@@ -20,7 +20,12 @@ def predict_sentiment(text):
     result = classifier(clean_text)[0]
     
     # 4. Map nhãn (Gọi hàm từ utils.py)
-    final_label = map_label(result['label'])
+    # Yêu cầu kỹ thuật: Nếu xác suất < 0.5, trả về NEUTRAL mặc định
+    if result['score'] < 0.5:
+        final_label = "NEUTRAL"
+    else:
+        final_label = map_label(result['label'])
+        
     score = round(result['score'] * 100, 2)
     
     return final_label, score, clean_text
