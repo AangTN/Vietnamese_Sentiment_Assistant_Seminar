@@ -31,17 +31,21 @@ with col1:
         else:
             with st.spinner("Đang phân tích..."):
                 # Gọi hàm xử lý từ file classifier.py
-                label, score, clean_text = classifier.predict_sentiment(user_input)
+                result = classifier.predict_sentiment(user_input)
+                
+                label = result['sentiment']
+                score = result['score']
                 
                 # Lưu vào DB qua file database.py
                 database.save_result(user_input, label)
                 
                 # Hiển thị
                 st.success("Hoàn tất!")
+                
+                # Hiển thị JSON đúng format yêu cầu
                 st.json({
-                    "text": user_input,
-                    "processed_text": clean_text,
-                    "sentiment": label
+                    "text": result['text'],
+                    "sentiment": result['sentiment']
                 })
                 
                 # Tô màu kết quả

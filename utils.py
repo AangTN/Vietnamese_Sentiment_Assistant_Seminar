@@ -126,14 +126,3 @@ def preprocess_text(text):
     words = text.split()
     corrected_words = [replace_dict.get(word, word) for word in words]
     return " ".join(corrected_words)
-
-def map_label(model_label):
-    """
-    Chuyển đổi nhãn từ Model (POS/NEG/NEU) sang yêu cầu đề bài (POSITIVE/...)
-    """
-    mapping = {
-        "POS": "POSITIVE",
-        "NEG": "NEGATIVE",
-        "NEU": "NEUTRAL"
-    }
-    return mapping.get(model_label, "NEUTRAL")
