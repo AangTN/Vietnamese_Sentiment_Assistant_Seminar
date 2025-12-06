@@ -8,7 +8,7 @@ def preprocess_text(text):
         
     text = text.lower().strip()
     
-    # Từ điển ánh xạ lỗi chính tả/viết tắt
+    # Từ điển ánh xạ lỗi chính tả/viết tắt / không dấu
     replace_dict = {
         # 1. NHÓM PHỦ ĐỊNH (Cực kỳ quan trọng: "không thích" khác hẳn "thích")
         "ko": "không",
@@ -42,6 +42,9 @@ def preprocess_text(text):
         "wa": "quá",
         "qua": "quá",
         "wá": "quá",
+        "vui ve": "vui vẻ",
+        "hanh phuc": "hạnh phúc",
+        "tuyet voi": "tuyệt vời",
         "hơi": "hơi",
         "hoi": "hơi",
         "sieu": "siêu",
@@ -110,7 +113,11 @@ def preprocess_text(text):
         "t": "tôi",
         "tao": "tôi",
         "may": "mày",
+        "hom": "hôm",
+        "nay": "nay",
         "hom nay": "hôm nay",
+        "hom qua": "hôm qua",
+        "ngay mai": "ngày mai",
         "h": "giờ",
         "tr": "trời",
         "trùi": "trời",
@@ -125,4 +132,10 @@ def preprocess_text(text):
     
     words = text.split()
     corrected_words = [replace_dict.get(word, word) for word in words]
-    return " ".join(corrected_words)
+    normalized = " ".join(corrected_words)
+
+    # Viết hoa chữ cái đầu câu sau khi chuẩn hóa
+    if normalized:
+        normalized = normalized[0].upper() + normalized[1:]
+
+    return normalized
